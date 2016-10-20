@@ -9,9 +9,11 @@ use App\FlashMessage;
 
 class FlashMessagesController extends Controller
 {
-    public function show()
+    public function show(Request $request)
     {
-        $this->flash()->success('Hello LaraHel', 'Flashy Title');
+        if ($request->input('noflash') != '1') {
+            $this->flash()->success('Hello LaraHel', 'Flashy Title');
+        }
         return view('flashes.show');
     }
 

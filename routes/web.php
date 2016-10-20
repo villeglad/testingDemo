@@ -15,4 +15,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/login', 'LoginController@index');
+Route::post('/login', 'LoginController@store');
+
+Route::get('/admin', function () {
+    return 'Logged in';
+})->middleware('auth');
+
 Route::get('show_flash', 'FlashMessagesController@show');
