@@ -10,7 +10,7 @@ use App\FlashMessage;
 class FlashMessagesController extends Controller
 {
     public function show(Request $request)
-    {
+    {   
         if ($request->input('noflash') != '1') {
             $this->flash()->success('Hello LaraHel', 'Flashy Title');
         }
@@ -19,6 +19,6 @@ class FlashMessagesController extends Controller
 
     private function flash()
     {
-        return new FlashMessage();
+        return new FlashMessage;
     }
 }

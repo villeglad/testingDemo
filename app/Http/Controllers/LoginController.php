@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 use App\Http\Requests;
@@ -15,7 +15,7 @@ class LoginController extends Controller
         return view('login');
     }
 
-    public function store(Request $request)
+    public function login(Request $request)
     {
         $this->validate($request, [
             'email' => 'required|email',
@@ -26,5 +26,11 @@ class LoginController extends Controller
         }
         
         return back()->with('failedLogin', 'Email or Password not found');
+    }
+
+    public function logout()
+    {
+        Auth::logout();
+        return redirect()->route('loginForm');
     }
 }

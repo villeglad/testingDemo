@@ -26,4 +26,15 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public static function registerNewUser(array $data)
+    {
+        // create a user
+        $user = static::create($data);
+        
+        // do other stuff, like send an email to newly registered user
+        
+        return $user;
+        
+    }
 }

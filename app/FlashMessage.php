@@ -1,9 +1,10 @@
 <?php
+
 namespace App;
 
 class FlashMessage {
 
-    private function create($message, $title = null, $level, $key = 'flash_message')
+    public function create($message, $title = null, $level, $key = 'flash_message')
     {
         return session()->flash($key, [
             'title' => $title,
