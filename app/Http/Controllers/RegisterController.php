@@ -3,21 +3,23 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Registration;
 use App\User;
-use Illuminate\Foundation\Auth\RegistersUsers;
-use Illuminate\Http\Request;
 use Auth;
+use Illuminate\Http\Request;
 
 class RegisterController extends Controller
 {
-
+    private $registration;
+    
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(Registration $registration)
     {
+        $this->registration = $registration;
         $this->middleware('guest');
     }
 
@@ -34,7 +36,7 @@ class RegisterController extends Controller
             'password' => 'required|min:6',
         ]);
 
-        $user = User::registerNewUser($request->all());
+        $user = $this->registration->registerNewUser($request->only(['name', 'email', 'password']));
 
         Auth::login($user);
         

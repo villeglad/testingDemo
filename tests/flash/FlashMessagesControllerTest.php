@@ -10,9 +10,21 @@ class FlashMessagesControllerTest extends TestCase
 
     public function testFlashMessageIsShownByCall()
     {
-        $response = $this->call('GET', '/show_flash');
-        $this->assertSame(200, $response->status());
-        $this->assertSessionHas('flash_message', ['message' => 'Hello LaraHel', 'title' => 'Flashy Title', 'level' => 'success']);
+        // $this->get('/show_flash')
+        //      ->assertResponseOk()
+        //      ->assertSessionHas('flash_message', [
+        //         'message' => 'Hello LaraHel',
+        //         'title' => 'Flashy Title',
+        //         'level' => 'success'
+        //     ]
+        // );
+
+        $this->visit('/show_flash')
+             ->assertSessionHas('flash_message', [
+                'message' => 'Hello LaraHel',
+                'title' => 'Flashy Title',
+                'level' => 'success'
+            ]);
     }
 
     public function testFlashMessageLastsOnlyOneVisit()

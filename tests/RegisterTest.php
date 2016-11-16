@@ -1,7 +1,9 @@
 <?php
 
+use App\AppMailer;
 use App\User;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Prophecy\Argument;
 
 class RegisterTest extends TestCase
 {
@@ -20,38 +22,24 @@ class RegisterTest extends TestCase
              ->seePageIs('/admin');
     }
 
-
-    // Testing User-class static method "registerNewUser"
+    // Mocking the AppMailer class
     /** @test */
-    function it_should_create_a_new_user()
-    {
-        $data = [
-            'name' => 'Test user',
-            'email' => 'user@example.com',
-            'password' => 'mySecretAccessCode',
-        ];
-
-        $user = User::registerNewUser($data);
-        $this->assertEquals($data['name'], $user->name);
-
-        $this->seeInDatabase('users', [
-            'email' => 'user@example.com'
-        ]);
-    }
-
-    // Test that exception is thrown
-    /** @test */
-    function it_should_not_create_a_new_user_because_email_is_already_used()
-    {
-        $user1 = factory(User::class)->create(['email' => 'user@example.com']);
-
-        // registerNewUser-method should throw PDOException because of violating unique constraint
-        $this->expectException(PDOException::class);
+    // function it_should_call_register_api_method()
+    // {
+    //     $data = [
+    //         'name' => 'Test user',
+    //         'email' => 'user@example.com',
+    //         'password' => 'mySecretAccessCode',
+    //     ];
         
-        $user2 = User::registerNewUser([
-            'name' => 'User Two',
-            'email' => 'user@example.com',
-            'password' => 'mySecretAccessCode'
-        ]);
-    }
+    //     // mock the mailer
+    //     $this->mailer = $this->prophesize(AppMailer::class);
+    //     $this->app->instance(AppMailer::class, $this->mailer->reveal());
+
+    //     $this->mailer->sendTo($data['email'])->shouldBeCalled();
+
+        
+    //     $this->post('/register', $data)
+    //          ->assertResponseStatus(302);
+    // }
 }
