@@ -11,7 +11,8 @@ class RegistrationTest extends TestCase
 {
     use DatabaseMigrations;
     
-    function testUserRegisteredAndGotEmailSent()
+    /** @test */
+    function userRegisteredAndGotEmailSent()
     {
         // new User
         $user = new User;
@@ -44,12 +45,14 @@ class RegistrationTest extends TestCase
         // act
         $newUser = $registration->registerNewUser($data);
 
-        $this->assertInstanceOf(User::class, $user);
-        $this->seeInDatabase('users', $data);
+        $this->assertInstanceOf(User::class, $newUser);
+        $this->assertEquals($newUser->email, $data['email']);
+        $this->seeInDatabase('users', ['email' => 'user@example.com']);
         $this->dontSeeInDatabase('users', $notSentData);
     }
 
     // Test that exception is thrown
+    
     function testNewUserIsNotMadeBecauseOfUniqueConstraintViolation()
     {
         $user1 = factory(User::class)->create(['email' => 'user@example.com']);

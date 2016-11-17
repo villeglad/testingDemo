@@ -10,6 +10,8 @@ class FlashMessagesControllerTest extends TestCase
 
     public function testFlashMessageIsShownByCall()
     {
+        // alternative way
+        // 
         // $this->get('/show_flash')
         //      ->assertResponseOk()
         //      ->assertSessionHas('flash_message', [

@@ -4,15 +4,6 @@ namespace App;
 
 class FlashMessage {
 
-    public function create($message, $title = null, $level, $key = 'flash_message')
-    {
-        return session()->flash($key, [
-            'title' => $title,
-            'message' => $message,
-            'level' => $level
-        ]);
-    }
-
     public function info($message, $title = null)
     {
         return $this->create($message, $title, 'info');
@@ -31,5 +22,14 @@ class FlashMessage {
     public function warning($message, $title = null)
     {
         return $this->create($message, $title, 'warning');
+    }
+
+    private function create($message, $title = null, $level, $key = 'flash_message')
+    {
+        return session()->flash($key, [
+            'title' => $title,
+            'message' => $message,
+            'level' => $level
+        ]);
     }
 }
