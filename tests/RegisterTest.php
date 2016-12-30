@@ -10,6 +10,7 @@ class RegisterTest extends TestCase
     /** @test */
     function it_should_register_new_user()
     {
+        $this->disableExceptionHandling();
         $this->visit('/register')
              ->see('Register')
              ->type('Test User', 'name')
